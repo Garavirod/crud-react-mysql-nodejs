@@ -5,7 +5,7 @@ const sequelize = new Sequelize('UsersTest', 'root', 'garavirod14040', {
     host: 'localhost',
     dialect: 'mysql',
     port: '3306',
-    operatorsAliases: false,
+    // operatorsAliases: false,
     define: {
         timestamps: false
     },
