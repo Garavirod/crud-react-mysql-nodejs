@@ -9,14 +9,12 @@ const app = express();
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 
 // importing routes employee
 const employeeRouters = require('./routes/employeeRoute');
 //Route
-app.use('/employee', employeeRouters)
-
-app.use(express.urlencoded({ extended: true }));
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use('/api', employeeRouters)
 
 // Rutas
 app.get('/', (req, res) => {
@@ -30,5 +28,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('puerto', process.env.PORT || 3000);
 app.listen(app.get('puerto'), () => {
-    console.log('Example app listening on port' + app.get('puerto'));
+    console.log('Example app listening on port ' + app.get('puerto'));
 });

@@ -47,9 +47,28 @@ controllers.list = async(req, res) => {
     res.json({ success: true, data: data });
 };
 
+// Read by id
+controllers.oneEmployee = async(req, res) => {
+    // req.params['id']
+    const _id = req.params.id;
+    const data = await Employee.findOne({
+            where: { id: _id }
+        })
+        .then(function(data) {
+            return data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+    res.json({ success: true, data: data });
+};
+
 controllers.create = async(req, res) => {
     // Data
     const { name, email, address, phone, role } = req.body;
+    console.log(req.body);
+
     // create
     const data = await Employee.create({
             name: name,
@@ -62,7 +81,7 @@ controllers.create = async(req, res) => {
             return data;
         })
         .catch((error) => {
-            console.log("Errorazo " + error);
+            console.log("Error trying to save on DBB " + error);
             return error;
         });
     // return res
@@ -71,6 +90,29 @@ controllers.create = async(req, res) => {
         message: "Guardo exitosamente",
         data: data,
     });
+};
+
+controllers.update = async(res, req) => {
+    // Parameter id
+    const { id } = req.parms;
+    const { name, email, address, phone, role } = req.body;
+    // Update data
+    const data = await Employee.update({
+            name: name,
+            email: email,
+            address: address,
+            phone: phone,
+            roleId: role,
+        }, {
+            where: { id: id },
+        })
+        .then(function(data) {
+            return data;
+        })
+        .catch((error) => {
+            return error;
+        });
+    res.json({ success: true, data: data, message: "Updated successfuly!" });
 };
 
 module.exports = controllers;

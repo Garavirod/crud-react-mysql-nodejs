@@ -6,10 +6,16 @@ const employeeController = require('../controllers/EmployeeController');
 
 
 // Routes Employee
-
 router.get('/testdata', employeeController.testdata);
+// Read
 router.get('/list', employeeController.list);
-router.get('/create', employeeController.create);
+// Create
+router.post('/create', employeeController.create);
+// Update
+router.put('/update/:id', employeeController.update);
+// Read by id
+router.get('/employee/:id', employeeController.oneEmployee);
+// -----------------------------
 router.get('/save', (req, res) => {
     res.json({ status: 'Employeed Saved' });
 });
