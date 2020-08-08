@@ -12,9 +12,11 @@ router.get('/list', employeeController.list);
 // Create
 router.post('/create', employeeController.create);
 // Update
-router.put('/update/:id', employeeController.update);
+router.post('/update/:id', employeeController.update);
 // Read by id
 router.get('/employee/:id', employeeController.oneEmployee);
+// Delete
+router.delete('/delete/:id', employeeController.delete);
 // -----------------------------
 router.get('/save', (req, res) => {
     res.json({ status: 'Employeed Saved' });

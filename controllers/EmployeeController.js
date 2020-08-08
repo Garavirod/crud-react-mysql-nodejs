@@ -52,7 +52,7 @@ controllers.oneEmployee = async(req, res) => {
     // req.params['id']
     const _id = req.params.id;
     const data = await Employee.findOne({
-            where: { id: _id }
+            where: { id: _id },
         })
         .then(function(data) {
             return data;
@@ -92,9 +92,9 @@ controllers.create = async(req, res) => {
     });
 };
 
-controllers.update = async(res, req) => {
-    // Parameter id
-    const { id } = req.parms;
+controllers.update = async(req, res) => {
+    // New data
+    const _id = req.params.id; //:id
     const { name, email, address, phone, role } = req.body;
     // Update data
     const data = await Employee.update({
@@ -104,7 +104,7 @@ controllers.update = async(res, req) => {
             phone: phone,
             roleId: role,
         }, {
-            where: { id: id },
+            where: { id: _id },
         })
         .then(function(data) {
             return data;
@@ -113,6 +113,15 @@ controllers.update = async(res, req) => {
             return error;
         });
     res.json({ success: true, data: data, message: "Updated successfuly!" });
+};
+
+// DELETE
+controllers.delete = async(req, res) => {
+    const _id = req.params.id; //:id
+    const del = await Employee.destroy({
+        where: { id: _id },
+    });
+    res.json({ success: true, deleted: del, message: "Deleted successful" });
 };
 
 module.exports = controllers;
